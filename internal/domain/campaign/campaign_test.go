@@ -7,12 +7,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	//Criamos essa constante para evitar a repetição de código
+	name = "Campaign X"
+	content = "body"
+	contacts = []string{"email1@e.com", "email2@e.com"}
+)
+
 func Test_NewCampaign_CreateCampaign(t *testing.T) {
 	assert := assert.New(t)
-	name := "Campaign X"
-	content := "body"
-	contacts := []string{"email1@e.com", "email2@e.com"}
-
+	
 	campaign := NewCampaign(name, content, contacts)
 
 	/* SUBSTITUIMOS ESSE MONTE DE IF/ELSE por assert
@@ -36,10 +40,7 @@ func Test_NewCampaign_CreateCampaign(t *testing.T) {
 func Test_NewCampaign_IDIsNotNill(t *testing.T) {
 
 	assert := assert.New(t)
-	name := "Campaign X"
-	content := "body"
-	contacts := []string{"email1@e.com", "email2@e.com"}
-
+	
 	campaign := NewCampaign(name, content, contacts)
 
 	assert.NotNil(campaign.ID)
@@ -47,12 +48,10 @@ func Test_NewCampaign_IDIsNotNill(t *testing.T) {
 }
 
 // Testando o time, tem um bug aula 71.
-func Test_NewCampaign_CreatedOnIsNotNill(t *testing.T) {
+func Test_NewCampaign_CreatedOnMustBeNow(t *testing.T) {
 
 	assert := assert.New(t)
-	name := "Campaign X"
-	content := "body"
-	contacts := []string{"email1@e.com", "email2@e.com"}
+	
 	//colocando uma variável para combater o bug
 	now := time.Now().Add(-time.Minute)//verifica se o tempo de agora  é menor que o da criação do email
 
