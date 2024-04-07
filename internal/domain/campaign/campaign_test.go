@@ -2,11 +2,12 @@ package campaign
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestNewCampaign(t *testing.T) {
+func Test_NewCampaign_CreateCampaign(t *testing.T) {
 	assert := assert.New(t)
 	name := "Campaign X"
 	content := "body"
@@ -24,9 +25,39 @@ func TestNewCampaign(t *testing.T) {
 	} else if len(campaign.Contacts) != len(contacts) {
 		t.Errorf("expected correct contacts")
 	}*/
-	
-	assert.Equal(campaign.ID, "1")
+
+	println(campaign.ID)
 	assert.Equal(campaign.Name, name)
 	assert.Equal(campaign.Content, content)
 	assert.Equal(len(campaign.Contacts), len(contacts))
+}
+
+// CRIANDO TESTE PARA VER SE O ID NÃO É NULO, EXEMPLO PARA PODERMOS PERCEBER QUE PODEMOS TESTAR AS COISAS SEPARADAS
+func Test_NewCampaign_IDIsNotNill(t *testing.T) {
+
+	assert := assert.New(t)
+	name := "Campaign X"
+	content := "body"
+	contacts := []string{"email1@e.com", "email2@e.com"}
+
+	campaign := NewCampaign(name, content, contacts)
+
+	assert.NotNil(campaign.ID)
+
+}
+
+// Testando o time, tem um bug aula 71.
+func Test_NewCampaign_CreatedOnIsNotNill(t *testing.T) {
+
+	assert := assert.New(t)
+	name := "Campaign X"
+	content := "body"
+	contacts := []string{"email1@e.com", "email2@e.com"}
+	//colocando uma variável para combater o bug
+	now := time.Now().Add(-time.Minute)//verifica se o tempo de agora  é menor que o da criação do email
+
+	campaign := NewCampaign(name, content, contacts)
+
+	assert.Greater(campaign.CreatedOn, now)
+
 }

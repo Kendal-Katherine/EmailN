@@ -1,6 +1,10 @@
 package campaign
 
-import "time"
+import (
+	"time"
+
+	"github.com/rs/xid"
+)
 
 type Contacts struct {
 	Email string
@@ -22,9 +26,10 @@ func NewCampaign(name string, content string, emails []string) *Campaign {
 	}
 
 	return &Campaign{
-		ID:        "1",
-		Name:      name,
-		Content:   content,
+		ID:      xid.New().String(),
+		Name:    name,
+		Content: content,
+		//Para testar o createdOn é necessário comentar ele
 		CreatedOn: time.Now(),
 		Contacts:  contacts,
 	}
