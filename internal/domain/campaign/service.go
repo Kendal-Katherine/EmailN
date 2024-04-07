@@ -14,6 +14,10 @@ func (s *Service) Create(newCampaign contract.NewCampaign) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	err = s.Repository.Save(campaign)
+	if err != nil {
+		return "", err
+	}
 	s.Repository.Save(campaign)
 
 	return campaign.ID,
