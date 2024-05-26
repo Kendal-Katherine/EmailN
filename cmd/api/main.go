@@ -14,6 +14,7 @@ type product struct {
 
 func main() {
 	r := chi.NewRouter() // O Chi facilita a criação das rotas
+	r.Use(myMiddleware)
 	r.Get("/{productName}", func(w http.ResponseWriter, r *http.Request) {
 
 		param := chi.URLParam(r, "productName")
@@ -31,4 +32,14 @@ func main() {
 	})
 
 	http.ListenAndServe("localhost:8080", r) // O ListenAndServe é responsável por iniciar o servidor
+}
+
+func myMiddleware(next http.Handler)  http.Handler {
+return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
+	println("before")
+	next.ServeHTTP(w, r) // O ServeHTTP é responsável por executar a requisição
+	println("after")
+
+})
+
 }
