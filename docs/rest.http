@@ -1,0 +1,10 @@
+GET HTTP://localhost:8080/  
+
+###
+
+POST HTTP://localhost:8080/product
+
+{
+    "name": "Computer"
+
+}
